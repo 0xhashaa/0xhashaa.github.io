@@ -1,382 +1,364 @@
 <!DOCTYPE html>
 <html lang="mn">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Miners Online Shop</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Нуурын ШОП</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f5f7;
-      color: #222;
-    }
+body{
+font-family:Arial,sans-serif;
+background:#f4f4f4;
+color:#222;
+}
 
-    header {
-      background: linear-gradient(135deg, #111, #333);
-      color: white;
-      text-align: center;
-      padding: 35px 15px;
-    }
+header{
+background:#111;
+color:white;
+text-align:center;
+padding:30px 15px;
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 34px;
-    }
+header h1{
+font-size:34px;
+margin-bottom:10px;
+}
 
-    header p {
-      margin: 10px 0 0;
-      color: #ddd;
-    }
+header p{
+color:#ccc;
+}
 
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      padding: 25px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 25px;
-    }
+.container{
+max-width:1200px;
+margin:auto;
+padding:25px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
+}
 
-    .card {
-      background: white;
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-      cursor: pointer;
-      transition: 0.25s;
-    }
+.card{
+background:white;
+border-radius:16px;
+overflow:hidden;
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+cursor:pointer;
+transition:0.2s;
+}
 
-    .card:hover {
-      transform: translateY(-6px);
-    }
+.card:hover{
+transform:translateY(-6px);
+}
 
-    .card img {
-      width: 100%;
-      height: 230px;
-      object-fit: cover;
-    }
+.card img{
+width:100%;
+height:230px;
+object-fit:cover;
+}
 
-    .card-content {
-      padding: 18px;
-    }
+.card-content{
+padding:18px;
+}
 
-    .card h2 {
-      margin: 0;
-      font-size: 22px;
-    }
+.card h2{
+font-size:24px;
+margin-bottom:10px;
+}
 
-    .card p {
-      color: #666;
-      line-height: 1.5;
-    }
+.card p{
+color:#666;
+margin-bottom:10px;
+}
 
-    .price {
-      color: #e53935;
-      font-size: 24px;
-      font-weight: bold;
-      margin-top: 10px;
-    }
+.price{
+font-size:24px;
+font-weight:bold;
+color:#e53935;
+}
 
-    .badge {
-      display: inline-block;
-      background: #ffcc00;
-      color: #111;
-      padding: 5px 10px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
+.badge{
+display:inline-block;
+background:#ffcc00;
+padding:5px 10px;
+border-radius:20px;
+font-size:13px;
+font-weight:bold;
+margin-bottom:12px;
+}
 
-    footer {
-      text-align: center;
-      padding: 25px;
-      color: #777;
-    }
+footer{
+text-align:center;
+padding:25px;
+color:#777;
+}
 
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 999;
-      inset: 0;
-      background: rgba(0,0,0,0.75);
-      padding: 20px;
-      overflow-y: auto;
-    }
+/* Modal */
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.75);
+z-index:999;
+padding:20px;
+overflow-y:auto;
+}
 
-    .modal-box {
-      background: white;
-      max-width: 900px;
-      margin: 40px auto;
-      border-radius: 20px;
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      position: relative;
-    }
+.modal-box{
+background:white;
+max-width:950px;
+margin:30px auto;
+border-radius:18px;
+overflow:hidden;
+display:grid;
+grid-template-columns:1fr 1fr;
+position:relative;
+}
 
-    .close {
-      position: absolute;
-      top: 12px;
-      right: 18px;
-      font-size: 32px;
-      cursor: pointer;
-      color: #333;
-      z-index: 10;
-    }
+.close{
+position:absolute;
+top:12px;
+right:18px;
+font-size:34px;
+cursor:pointer;
+z-index:5;
+}
 
-    .gallery {
-      padding: 20px;
-      background: #f1f1f1;
-    }
+.gallery{
+padding:20px;
+background:#f1f1f1;
+}
 
-    .main-img {
-      width: 100%;
-      height: 380px;
-      object-fit: cover;
-      border-radius: 15px;
-    }
+.main-img{
+width:100%;
+height:380px;
+object-fit:cover;
+border-radius:12px;
+}
 
-    .thumbs {
-      display: flex;
-      gap: 10px;
-      margin-top: 12px;
-      overflow-x: auto;
-    }
+.thumbs{
+display:flex;
+gap:10px;
+margin-top:12px;
+overflow-x:auto;
+}
 
-    .thumbs img {
-      width: 80px;
-      height: 70px;
-      object-fit: cover;
-      border-radius: 10px;
-      cursor: pointer;
-      border: 3px solid transparent;
-    }
+.thumbs img{
+width:80px;
+height:70px;
+object-fit:cover;
+border-radius:10px;
+cursor:pointer;
+border:2px solid transparent;
+}
 
-    .thumbs img:hover {
-      border-color: #1877f2;
-    }
+.thumbs img:hover{
+border-color:#1877f2;
+}
 
-    .details {
-      padding: 30px;
-    }
+.details{
+padding:28px;
+}
 
-    .details h2 {
-      font-size: 30px;
-      margin-top: 0;
-    }
+.details h2{
+font-size:32px;
+margin-bottom:10px;
+}
 
-    .details p {
-      color: #555;
-      line-height: 1.7;
-    }
+.details p{
+line-height:1.6;
+color:#555;
+margin-bottom:15px;
+}
 
-    .info {
-      background: #f7f7f7;
-      padding: 12px;
-      border-radius: 12px;
-      margin: 15px 0;
-    }
+.info{
+background:#f7f7f7;
+padding:14px;
+border-radius:12px;
+margin-top:12px;
+}
 
-    .info div {
-      margin: 8px 0;
-    }
+.info div{
+margin:8px 0;
+}
 
-    .order-btn {
-      background: #1877f2;
-      color: white;
-      border: none;
-      padding: 15px 22px;
-      font-size: 17px;
-      border-radius: 12px;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 15px;
-    }
+.order-btn{
+width:100%;
+margin-top:18px;
+padding:15px;
+border:none;
+background:#1877f2;
+color:white;
+font-size:17px;
+border-radius:12px;
+cursor:pointer;
+}
 
-    .order-btn:hover {
-      background: #145fd1;
-    }
+.order-btn:hover{
+background:#145fd1;
+}
 
-    @media (max-width: 750px) {
-      .modal-box {
-        grid-template-columns: 1fr;
-      }
+@media(max-width:760px){
+.modal-box{
+grid-template-columns:1fr;
+}
 
-      .main-img {
-        height: 280px;
-      }
-
-      header h1 {
-        font-size: 28px;
-      }
-    }
-  </style>
+.main-img{
+height:280px;
+}
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <h1>⛏️ Miners Online Shop</h1>
-  <p>Уул уурхайн хэрэгсэл, хамгаалалтын бараа</p>
+<h1>Нуурын ШОП</h1>
+<p>nuuriinshop.github.io</p>
 </header>
 
 <div class="container" id="productList"></div>
 
 <footer>
-  © 2026 Miners Online Shop · Facebook Messenger-р захиалга авна
+© 2026 Нуурын ШОП
 </footer>
 
 <div class="modal" id="productModal">
-  <div class="modal-box">
-    <span class="close" onclick="closeModal()">&times;</span>
+<div class="modal-box">
 
-    <div class="gallery">
-      <img id="modalMainImg" class="main-img" src="" alt="">
-      <div class="thumbs" id="modalThumbs"></div>
-    </div>
+<span class="close" onclick="closeModal()">&times;</span>
 
-    <div class="details">
-      <span class="badge" id="modalBadge"></span>
-      <h2 id="modalName"></h2>
-      <div class="price" id="modalPrice"></div>
-      <p id="modalDescription"></p>
+<div class="gallery">
+<img src="" id="modalMainImg" class="main-img">
+<div class="thumbs" id="modalThumbs"></div>
+</div>
 
-      <div class="info">
-        <div><b>Брэнд:</b> <span id="modalBrand"></span></div>
-        <div><b>Бэлэн эсэх:</b> <span id="modalStock"></span></div>
-        <div><b>Хүргэлт:</b> <span id="modalDelivery"></span></div>
-        <div><b>Төлбөр:</b> <span id="modalPayment"></span></div>
-      </div>
+<div class="details">
+<span class="badge" id="modalBadge"></span>
+<h2 id="modalName"></h2>
+<div class="price" id="modalPrice"></div>
+<p id="modalDescription"></p>
 
-      <button class="order-btn" id="orderButton">Messenger-р Захиалах</button>
-    </div>
-  </div>
+<div class="info">
+<div><b>Дэлгүүр:</b> Нуурын ШОП</div>
+<div><b>Хүргэлт:</b> Бүх аймаг руу</div>
+<div><b>Төлбөр:</b> Бэлэн / Дансаар</div>
+</div>
+
+<button class="order-btn" id="orderBtn">Messenger-р Захиалах</button>
+</div>
+
+</div>
 </div>
 
 <script>
-  const messengerPage = "YOUR_FACEBOOK_PAGE_USERNAME";
+const messengerPage = "YOUR_FACEBOOK_PAGE_USERNAME";
 
-  const products = [
-    {
-      name: "Mining Gloves",
-      price: "49,000₮",
-      short: "Хамгаалалтын ажлын бээлий",
-      badge: "Шинэ бараа",
-      brand: "Miners Pro",
-      stock: "Бэлэн байгаа",
-      delivery: "Улаанбаатар хотод хүргэлттэй",
-      payment: "Бэлэн / Дансаар",
-      description: "Уул уурхай, барилга, хүнд нөхцөлд ажиллахад тохиромжтой бат бөх хамгаалалтын бээлий. Гар халтирахгүй, зузаан материалтай, өдөр тутмын ажилд эвтэйхэн.",
-      images: [
-        "images/gloves1.jpg",
-        "images/gloves2.jpg",
-        "images/gloves3.jpg"
-      ]
-    },
-    {
-      name: "Safety Boots",
-      price: "129,000₮",
-      short: "Хамгаалалтын ажлын гутал",
-      badge: "Best Seller",
-      brand: "WorkSafe",
-      stock: "Хэмжээ асууж авна",
-      delivery: "Орон нутаг руу явуулна",
-      payment: "Бэлэн / Дансаар",
-      description: "Уул уурхайн нөхцөлд өмсөхөд тохиромжтой хамгаалалтын гутал. Хальтиргаа багатай ултай, удаан эдэлгээтэй, хүнд ажилд зориулагдсан.",
-      images: [
-        "images/boots1.jpg",
-        "images/boots2.jpg",
-        "images/boots3.jpg"
-      ]
-    },
-    {
-      name: "Miner Helmet",
-      price: "89,000₮",
-      short: "LED гэрэлтэй хамгаалалтын каск",
-      badge: "Онцлох",
-      brand: "SafeMine",
-      stock: "Цөөн ширхэг үлдсэн",
-      delivery: "Хот дотор хүргэлттэй",
-      payment: "Бэлэн / Дансаар",
-      description: "LED гэрэлтэй уул уурхайн хамгаалалтын каск. Шөнө болон харанхуй орчинд ажиллахад тохиромжтой. Толгойд эвтэйхэн, тохируулгатай.",
-      images: [
-        "images/helmet1.jpg",
-        "images/helmet2.jpg",
-        "images/helmet3.jpg"
-      ]
-    }
-  ];
+const products = [
 
-  const productList = document.getElementById("productList");
+{
+name:"Хөшиг",
+price:"Үнэ inbox",
+badge:"Шинэ",
+short:"5 өнгөтэй хөшиг",
+description:"Гэр, оффис, унтлагын өрөөнд тохиромжтой чанартай хөшиг. 5 өөр өнгөний сонголттой.",
+images:[
+"images/hoshig1.jpg",
+"images/hoshig2.jpg",
+"images/hoshig3.jpg",
+"images/hoshig4.jpg",
+"images/hoshig5.jpg"
+]
+},
 
-  products.forEach((product, index) => {
-    productList.innerHTML += `
-      <div class="card" onclick="openProduct(${index})">
-        <img src="${product.images[0]}" alt="${product.name}">
-        <div class="card-content">
-          <span class="badge">${product.badge}</span>
-          <h2>${product.name}</h2>
-          <p>${product.short}</p>
-          <div class="price">${product.price}</div>
-        </div>
-      </div>
-    `;
-  });
+{
+name:"Машин угаагч буу",
+price:"Үнэ inbox",
+badge:"Best Seller",
+short:"Даралттай угаагч буу",
+description:"Машин угаах, хашаа цэвэрлэх, ус шүрших зориулалттай даралттай угаагч буу.",
+images:[
+"images/buu1.jpg",
+"images/buu2.jpg",
+"images/buu3.jpg"
+]
+},
 
-  function openProduct(index) {
-    const product = products[index];
+{
+name:"Тоос сорогч",
+price:"Үнэ inbox",
+badge:"Онцлох",
+short:"Хүчтэй соролттой тоос сорогч",
+description:"Гэр ахуйн хэрэглээнд зориулсан хүчтэй соролттой, дуу багатай тоос сорогч.",
+images:[
+"images/toos1.jpg",
+"images/toos2.jpg",
+"images/toos3.jpg"
+]
+}
 
-    document.getElementById("modalName").innerText = product.name;
-    document.getElementById("modalPrice").innerText = product.price;
-    document.getElementById("modalDescription").innerText = product.description;
-    document.getElementById("modalBrand").innerText = product.brand;
-    document.getElementById("modalStock").innerText = product.stock;
-    document.getElementById("modalDelivery").innerText = product.delivery;
-    document.getElementById("modalPayment").innerText = product.payment;
-    document.getElementById("modalBadge").innerText = product.badge;
-    document.getElementById("modalMainImg").src = product.images[0];
+];
 
-    const thumbs = document.getElementById("modalThumbs");
-    thumbs.innerHTML = "";
+const productList = document.getElementById("productList");
 
-    product.images.forEach(img => {
-      thumbs.innerHTML += `
-        <img src="${img}" onclick="changeImage('${img}')">
-      `;
-    });
+products.forEach((p,index)=>{
+productList.innerHTML += `
+<div class="card" onclick="openProduct(${index})">
+<img src="${p.images[0]}">
+<div class="card-content">
+<span class="badge">${p.badge}</span>
+<h2>${p.name}</h2>
+<p>${p.short}</p>
+<div class="price">${p.price}</div>
+</div>
+</div>
+`;
+});
 
-    document.getElementById("orderButton").onclick = function() {
-      const text = encodeURIComponent(
-        "Сайн байна уу, " + product.name + " барааг захиалмаар байна. Үнэ: " + product.price
-      );
-      window.open("https://m.me/" + messengerPage + "?text=" + text, "_blank");
-    };
+function openProduct(index){
+let p = products[index];
 
-    document.getElementById("productModal").style.display = "block";
-  }
+document.getElementById("modalName").innerText = p.name;
+document.getElementById("modalPrice").innerText = p.price;
+document.getElementById("modalDescription").innerText = p.description;
+document.getElementById("modalBadge").innerText = p.badge;
+document.getElementById("modalMainImg").src = p.images[0];
 
-  function changeImage(img) {
-    document.getElementById("modalMainImg").src = img;
-  }
+let thumbs = document.getElementById("modalThumbs");
+thumbs.innerHTML = "";
 
-  function closeModal() {
-    document.getElementById("productModal").style.display = "none";
-  }
+p.images.forEach(img=>{
+thumbs.innerHTML += `<img src="${img}" onclick="changeImg('${img}')">`;
+});
 
-  window.onclick = function(event) {
-    const modal = document.getElementById("productModal");
-    if (event.target === modal) {
-      closeModal();
-    }
-  };
+document.getElementById("orderBtn").onclick = function(){
+window.open(
+"https://m.me/"+messengerPage+
+"?text=Сайн байна уу, "+p.name+" барааг захиалмаар байна."
+);
+};
+
+document.getElementById("productModal").style.display="block";
+}
+
+function changeImg(img){
+document.getElementById("modalMainImg").src = img;
+}
+
+function closeModal(){
+document.getElementById("productModal").style.display="none";
+}
+
+window.onclick = function(e){
+if(e.target == document.getElementById("productModal")){
+closeModal();
+}
+}
 </script>
 
 </body>
