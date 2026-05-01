@@ -1,109 +1,382 @@
 <!DOCTYPE html>
 <html lang="mn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Miners Online Shop</title>
-<style>
-body{
-margin:0;
-font-family:Arial, sans-serif;
-background:#f5f5f5;
-}
-header{
-background:#111;
-color:white;
-padding:20px;
-text-align:center;
-font-size:28px;
-font-weight:bold;
-}
-.container{
-max-width:1200px;
-margin:auto;
-padding:20px;
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-}
-.card{
-background:white;
-border-radius:12px;
-padding:15px;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);
-text-align:center;
-}
-.card img{
-width:100%;
-height:220px;
-object-fit:cover;
-border-radius:10px;
-}
-.price{
-font-size:22px;
-color:#e53935;
-font-weight:bold;
-margin:10px 0;
-}
-button{
-background:#1877f2;
-color:white;
-border:none;
-padding:12px 18px;
-border-radius:8px;
-font-size:16px;
-cursor:pointer;
-}
-button:hover{
-background:#145fd1;
-}
-footer{
-text-align:center;
-padding:20px;
-color:#777;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Miners Online Shop</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f5f7;
+      color: #222;
+    }
+
+    header {
+      background: linear-gradient(135deg, #111, #333);
+      color: white;
+      text-align: center;
+      padding: 35px 15px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 34px;
+    }
+
+    header p {
+      margin: 10px 0 0;
+      color: #ddd;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 25px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 18px;
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .card p {
+      color: #666;
+      line-height: 1.5;
+    }
+
+    .price {
+      color: #e53935;
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #ffcc00;
+      color: #111;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #777;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .modal-box {
+      background: white;
+      max-width: 900px;
+      margin: 40px auto;
+      border-radius: 20px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      top: 12px;
+      right: 18px;
+      font-size: 32px;
+      cursor: pointer;
+      color: #333;
+      z-index: 10;
+    }
+
+    .gallery {
+      padding: 20px;
+      background: #f1f1f1;
+    }
+
+    .main-img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      border-radius: 15px;
+    }
+
+    .thumbs {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+      overflow-x: auto;
+    }
+
+    .thumbs img {
+      width: 80px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+      border: 3px solid transparent;
+    }
+
+    .thumbs img:hover {
+      border-color: #1877f2;
+    }
+
+    .details {
+      padding: 30px;
+    }
+
+    .details h2 {
+      font-size: 30px;
+      margin-top: 0;
+    }
+
+    .details p {
+      color: #555;
+      line-height: 1.7;
+    }
+
+    .info {
+      background: #f7f7f7;
+      padding: 12px;
+      border-radius: 12px;
+      margin: 15px 0;
+    }
+
+    .info div {
+      margin: 8px 0;
+    }
+
+    .order-btn {
+      background: #1877f2;
+      color: white;
+      border: none;
+      padding: 15px 22px;
+      font-size: 17px;
+      border-radius: 12px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 15px;
+    }
+
+    .order-btn:hover {
+      background: #145fd1;
+    }
+
+    @media (max-width: 750px) {
+      .modal-box {
+        grid-template-columns: 1fr;
+      }
+
+      .main-img {
+        height: 280px;
+      }
+
+      header h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<header>⛏️ Miners Online Shop</header>
+<header>
+  <h1>⛏️ Miners Online Shop</h1>
+  <p>Уул уурхайн хэрэгсэл, хамгаалалтын бараа</p>
+</header>
 
-<div class="container">
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600" alt="">
-<h2>Mining Gloves</h2>
-<p>Хүчтэй хамгаалалтын бээлий</p>
-<div class="price">49,000₮</div>
-<button onclick="order('Mining Gloves')">Messenger-р Захиалах</button>
-</div>
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=600" alt="">
-<h2>Safety Boots</h2>
-<p>Уул уурхайн хамгаалалтын гутал</p>
-<div class="price">129,000₮</div>
-<button onclick="order('Safety Boots')">Messenger-р Захиалах</button>
-</div>
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=600" alt="">
-<h2>Miner Helmet</h2>
-<p>LED гэрэлтэй каск</p>
-<div class="price">89,000₮</div>
-<button onclick="order('Miner Helmet')">Messenger-р Захиалах</button>
-</div>
-
-</div>
+<div class="container" id="productList"></div>
 
 <footer>
-© 2026 Miners Online Shop
+  © 2026 Miners Online Shop · Facebook Messenger-р захиалга авна
 </footer>
 
+<div class="modal" id="productModal">
+  <div class="modal-box">
+    <span class="close" onclick="closeModal()">&times;</span>
+
+    <div class="gallery">
+      <img id="modalMainImg" class="main-img" src="" alt="">
+      <div class="thumbs" id="modalThumbs"></div>
+    </div>
+
+    <div class="details">
+      <span class="badge" id="modalBadge"></span>
+      <h2 id="modalName"></h2>
+      <div class="price" id="modalPrice"></div>
+      <p id="modalDescription"></p>
+
+      <div class="info">
+        <div><b>Брэнд:</b> <span id="modalBrand"></span></div>
+        <div><b>Бэлэн эсэх:</b> <span id="modalStock"></span></div>
+        <div><b>Хүргэлт:</b> <span id="modalDelivery"></span></div>
+        <div><b>Төлбөр:</b> <span id="modalPayment"></span></div>
+      </div>
+
+      <button class="order-btn" id="orderButton">Messenger-р Захиалах</button>
+    </div>
+  </div>
+</div>
+
 <script>
-function order(product){
-window.open("https://m.me/yourfacebookpage?text=Сайн байна уу, " + product + " захиалмаар байна.");
-}
+  const messengerPage = "YOUR_FACEBOOK_PAGE_USERNAME";
+
+  const products = [
+    {
+      name: "Mining Gloves",
+      price: "49,000₮",
+      short: "Хамгаалалтын ажлын бээлий",
+      badge: "Шинэ бараа",
+      brand: "Miners Pro",
+      stock: "Бэлэн байгаа",
+      delivery: "Улаанбаатар хотод хүргэлттэй",
+      payment: "Бэлэн / Дансаар",
+      description: "Уул уурхай, барилга, хүнд нөхцөлд ажиллахад тохиромжтой бат бөх хамгаалалтын бээлий. Гар халтирахгүй, зузаан материалтай, өдөр тутмын ажилд эвтэйхэн.",
+      images: [
+        "images/gloves1.jpg",
+        "images/gloves2.jpg",
+        "images/gloves3.jpg"
+      ]
+    },
+    {
+      name: "Safety Boots",
+      price: "129,000₮",
+      short: "Хамгаалалтын ажлын гутал",
+      badge: "Best Seller",
+      brand: "WorkSafe",
+      stock: "Хэмжээ асууж авна",
+      delivery: "Орон нутаг руу явуулна",
+      payment: "Бэлэн / Дансаар",
+      description: "Уул уурхайн нөхцөлд өмсөхөд тохиромжтой хамгаалалтын гутал. Хальтиргаа багатай ултай, удаан эдэлгээтэй, хүнд ажилд зориулагдсан.",
+      images: [
+        "images/boots1.jpg",
+        "images/boots2.jpg",
+        "images/boots3.jpg"
+      ]
+    },
+    {
+      name: "Miner Helmet",
+      price: "89,000₮",
+      short: "LED гэрэлтэй хамгаалалтын каск",
+      badge: "Онцлох",
+      brand: "SafeMine",
+      stock: "Цөөн ширхэг үлдсэн",
+      delivery: "Хот дотор хүргэлттэй",
+      payment: "Бэлэн / Дансаар",
+      description: "LED гэрэлтэй уул уурхайн хамгаалалтын каск. Шөнө болон харанхуй орчинд ажиллахад тохиромжтой. Толгойд эвтэйхэн, тохируулгатай.",
+      images: [
+        "images/helmet1.jpg",
+        "images/helmet2.jpg",
+        "images/helmet3.jpg"
+      ]
+    }
+  ];
+
+  const productList = document.getElementById("productList");
+
+  products.forEach((product, index) => {
+    productList.innerHTML += `
+      <div class="card" onclick="openProduct(${index})">
+        <img src="${product.images[0]}" alt="${product.name}">
+        <div class="card-content">
+          <span class="badge">${product.badge}</span>
+          <h2>${product.name}</h2>
+          <p>${product.short}</p>
+          <div class="price">${product.price}</div>
+        </div>
+      </div>
+    `;
+  });
+
+  function openProduct(index) {
+    const product = products[index];
+
+    document.getElementById("modalName").innerText = product.name;
+    document.getElementById("modalPrice").innerText = product.price;
+    document.getElementById("modalDescription").innerText = product.description;
+    document.getElementById("modalBrand").innerText = product.brand;
+    document.getElementById("modalStock").innerText = product.stock;
+    document.getElementById("modalDelivery").innerText = product.delivery;
+    document.getElementById("modalPayment").innerText = product.payment;
+    document.getElementById("modalBadge").innerText = product.badge;
+    document.getElementById("modalMainImg").src = product.images[0];
+
+    const thumbs = document.getElementById("modalThumbs");
+    thumbs.innerHTML = "";
+
+    product.images.forEach(img => {
+      thumbs.innerHTML += `
+        <img src="${img}" onclick="changeImage('${img}')">
+      `;
+    });
+
+    document.getElementById("orderButton").onclick = function() {
+      const text = encodeURIComponent(
+        "Сайн байна уу, " + product.name + " барааг захиалмаар байна. Үнэ: " + product.price
+      );
+      window.open("https://m.me/" + messengerPage + "?text=" + text, "_blank");
+    };
+
+    document.getElementById("productModal").style.display = "block";
+  }
+
+  function changeImage(img) {
+    document.getElementById("modalMainImg").src = img;
+  }
+
+  function closeModal() {
+    document.getElementById("productModal").style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    const modal = document.getElementById("productModal");
+    if (event.target === modal) {
+      closeModal();
+    }
+  };
 </script>
 
 </body>
