@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="mn">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="logo.png">
-<img src="logo.png" width="120">
+
 <title>Нуурын ШОП</title>
+
+<link rel="icon" href="logo.png">
 
 <style>
 *{
@@ -27,6 +29,12 @@ text-align:center;
 padding:30px 15px;
 }
 
+header img{
+width:120px;
+margin-bottom:15px;
+border-radius:12px;
+}
+
 header h1{
 font-size:34px;
 margin-bottom:10px;
@@ -34,6 +42,7 @@ margin-bottom:10px;
 
 header p{
 color:#ccc;
+font-size:16px;
 }
 
 .container{
@@ -68,6 +77,16 @@ object-fit:cover;
 padding:18px;
 }
 
+.badge{
+display:inline-block;
+background:#ffcc00;
+padding:5px 10px;
+border-radius:20px;
+font-size:13px;
+font-weight:bold;
+margin-bottom:12px;
+}
+
 .card h2{
 font-size:24px;
 margin-bottom:10px;
@@ -84,23 +103,13 @@ font-weight:bold;
 color:#e53935;
 }
 
-.badge{
-display:inline-block;
-background:#ffcc00;
-padding:5px 10px;
-border-radius:20px;
-font-size:13px;
-font-weight:bold;
-margin-bottom:12px;
-}
-
 footer{
 text-align:center;
 padding:25px;
 color:#777;
 }
 
-/* Modal */
+/* popup */
 .modal{
 display:none;
 position:fixed;
@@ -128,7 +137,7 @@ top:12px;
 right:18px;
 font-size:34px;
 cursor:pointer;
-z-index:5;
+z-index:10;
 }
 
 .gallery{
@@ -220,6 +229,7 @@ height:280px;
 <body>
 
 <header>
+<img src="logo.png" alt="Logo">
 <h1>Нуурын ШОП</h1>
 <p>nuuriinshop.github.io</p>
 </header>
@@ -252,9 +262,11 @@ height:280px;
 <div><b>Төлбөр:</b> Бэлэн / Дансаар</div>
 </div>
 
-<button class="order-btn" id="orderBtn">Messenger-р Захиалах</button>
-</div>
+<button class="order-btn" id="orderBtn">
+Messenger-р Захиалах
+</button>
 
+</div>
 </div>
 </div>
 
@@ -265,65 +277,62 @@ const products = [
 
 {
 name:"Хөшиг",
-price:"Үнэ 179'000₮",
+price:"Үнэ inbox",
 badge:"Шинэ",
-short:"5 өнгөтэй хөшиг",
-description:"Гэр, оффис, унтлагын өрөөнд тохиромжтой чанартай хөшиг. 5 өөр өнгөний сонголттой.",
+description:"5 өөр өнгөтэй чанартай хөшиг.",
 images:[
-"images/hoshig1.png",
-"images/hoshig2.png",
-"images/hoshig3.png",
-"images/hoshig4.png",
-"images/hoshig5.png"
+"hoshig1.png",
+"hoshig2.png",
+"hoshig3.png",
+"hoshig4.png",
+"hoshig5.png"
 ]
 },
 
 {
 name:"Машин угаагч буу",
-price:"Үнэ 152'500₮",
+price:"Үнэ inbox",
 badge:"Best Seller",
-short:"Даралттай угаагч буу",
-description:"Машин угаах, хашаа цэвэрлэх, ус шүрших зориулалттай даралттай угаагч буу.",
+description:"Даралттай угаагч буу.",
 images:[
-"images/buu1.jpg",
-"images/buu2.jpg",
-"images/buu3.jpg"
+"buu1.jpg",
+"buu2.jpg",
+"buu3.jpg"
 ]
 },
 
 {
 name:"Тоос сорогч",
-price:"Үнэ 250'000₮",
+price:"Үнэ inbox",
 badge:"Онцлох",
-short:"Хүчтэй соролттой тоос сорогч",
-description:"Гэр ахуйн хэрэглээнд зориулсан хүчтэй соролттой, дуу багатай тоос сорогч.",
+description:"Хүчтэй соролттой тоос сорогч.",
 images:[
-"images/toos1.jpg",
-"images/toos2.jpg",
-"images/toos3.jpg"
+"toos1.jpg",
+"toos2.jpg",
+"toos3.jpg"
 ]
 }
 
 ];
 
-const productList = document.getElementById("productList");
+const list = document.getElementById("productList");
 
-products.forEach((p,index)=>{
-productList.innerHTML += `
-<div class="card" onclick="openProduct(${index})">
+products.forEach((p,i)=>{
+list.innerHTML += `
+<div class="card" onclick="openProduct(${i})">
 <img src="${p.images[0]}">
 <div class="card-content">
 <span class="badge">${p.badge}</span>
 <h2>${p.name}</h2>
-<p>${p.short}</p>
+<p>${p.description}</p>
 <div class="price">${p.price}</div>
 </div>
 </div>
 `;
 });
 
-function openProduct(index){
-let p = products[index];
+function openProduct(i){
+let p = products[i];
 
 document.getElementById("modalName").innerText = p.name;
 document.getElementById("modalPrice").innerText = p.price;
@@ -335,13 +344,15 @@ let thumbs = document.getElementById("modalThumbs");
 thumbs.innerHTML = "";
 
 p.images.forEach(img=>{
-thumbs.innerHTML += `<img src="${img}" onclick="changeImg('${img}')">`;
+thumbs.innerHTML += `
+<img src="${img}" onclick="changeImg('${img}')">
+`;
 });
 
-document.getElementById("orderBtn").onclick = function(){
+document.getElementById("orderBtn").onclick=function(){
 window.open(
 "https://m.me/"+messengerPage+
-"?text=Сайн байна уу, "+p.name+" барааг захиалмаар байна."
+"?text=Сайн байна уу, "+p.name+" захиалмаар байна."
 );
 };
 
@@ -349,15 +360,15 @@ document.getElementById("productModal").style.display="block";
 }
 
 function changeImg(img){
-document.getElementById("modalMainImg").src = img;
+document.getElementById("modalMainImg").src=img;
 }
 
 function closeModal(){
 document.getElementById("productModal").style.display="none";
 }
 
-window.onclick = function(e){
-if(e.target == document.getElementById("productModal")){
+window.onclick=function(e){
+if(e.target==document.getElementById("productModal")){
 closeModal();
 }
 }
