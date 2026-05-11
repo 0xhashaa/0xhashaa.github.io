@@ -388,6 +388,37 @@ closeModal();
   data-attribution="biz_inbox"
   data-page_id="61567642040940"
 />
-  
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en">
+      <body>
+        {children}
+
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.$crisp=[];
+              window.CRISP_WEBSITE_ID="c765cefa-b7a8-4bee-a6f9-0e0fed34dc15";
+
+              (function(){
+                d=document;
+                s=d.createElement("script");
+                s.src="https://client.crisp.chat/l.js";
+                s.async=1;
+                d.getElementsByTagName("head")[0].appendChild(s);
+              })();
+            `,
+          }}
+        />
+      </body>
+    </html>
+  )
+}
+    
 </body>
 </html>
